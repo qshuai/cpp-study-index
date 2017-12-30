@@ -67,7 +67,8 @@
 - C++多态包括：重载多态、强制多态、类型参数化多态、包含多态。
 - 虚函数只能是类中的函数，并且不能是静态的成员函数。
 - 存在虚析构函数，但不存在虚构造函数；基类的析构函数为虚函数，则所有派生类析构函数都为虚函数。
-- 纯虚函数，结构为：`virtual int test(arglist) = 0;`,纯虚函数没有完整的函数定义，只是为派生类保留一个函数格式，
+- 纯虚函数，结构为：`virtual int test(arglist) = 0;`,纯虚函数没有完整的函数定义，只是为派生类保留一个函数格式。含有纯虚函数的类为抽象类，抽象类不能被创建对象。如果派生类没有重写基类的纯虚函数，则派生类的此函数仍为纯虚函数。
+- 向标准输出中输入字符串`std::fprintf(stdout, "%s", "hello");`
 
 ###奇形怪状
 
@@ -687,7 +688,45 @@ int main()
 	//correct
 	Point p[3];
 	```
+### 多行宏定义
 
+
+```
+#include <iostream>
+
+#define test(a, b)                                          \
+{                                                           \
+    std::cout << ((a) > (b) ? (a) : (b)) << std::endl;      \
+}                                                           \
+
+
+int main() {
+    test(23 + 3 + 3434, 123 / 34);
+
+    return 0;
+}
+```
+
+### 迭代器
+
+```
+template<typename T>
+void show(const std::vector <T> &t) {
+    for (auto ii : t) {
+        std::cout << ii << std::endl;
+    }
+}
+
+int main() {
+    int a[3] = {1, 2, 3};
+    std::vector<int> t;
+
+    t.assign(a, a + 3);
+    show<int>(t);
+
+    return 0;
+}
+```
 
 
 
